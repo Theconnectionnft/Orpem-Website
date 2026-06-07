@@ -365,32 +365,6 @@
     .work-card.featured-blue .work-arrow { color: rgba(255,255,255,0.6); }
     .work-card.featured-blue .work-card-title { color: #fff; }
     .work-card.featured-blue .work-card-sub { color: rgba(255,255,255,0.65); }
-    .work-card-logo {
-      position: absolute;
-      bottom: 1.6rem;
-      right: 1.6rem;
-      width: 60px;
-      height: 60px;
-      background: #fff;
-      border: 1px solid rgba(0,0,0,0.08);
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      padding: 9px;
-      opacity: 0;
-      transform: translateY(12px) scale(0.92);
-      filter: grayscale(100%);
-      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
-      pointer-events: none;
-    }
-    .work-card-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
-    .work-card:hover .work-card-logo {
-      opacity: 1;
-      transform: translateY(0) scale(1);
-      filter: grayscale(0%);
-    }
-    .work-card.featured .work-card-logo,
-    .work-card.featured-blue .work-card-logo { border-color: rgba(255,255,255,0.35); }
     .work-card-top {
       display: flex;
       justify-content: space-between;
@@ -769,15 +743,40 @@
     .proj-modal-right {
       padding: 5rem 3rem 4rem;
       display: flex;
-      align-items: center;
+      align-items: stretch;
     }
-    .proj-modal-img-grid { display: flex; flex-direction: column; gap: 1rem; width: 100%; }
-    .proj-modal-img-grid img {
+    .proj-modal-logo-panel {
+      position: relative;
       width: 100%;
-      height: 220px;
-      object-fit: cover;
-      border-radius: 4px;
+      flex: 1;
+      min-height: 456px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 4rem;
+      overflow: hidden;
+    }
+    .proj-modal-logo-panel::before {
+      content: '';
+      position: absolute;
+      top: 0; left: 0; right: 0;
+      height: 5px;
+      background: #D92938;
+    }
+    .proj-modal-logo-panel.tone-blue::before { background: #03738C; }
+    .proj-modal-logo-panel img {
+      max-width: 58%;
+      max-height: 58%;
+      object-fit: contain;
       display: block;
+      filter: drop-shadow(0 18px 40px rgba(0,0,0,0.12));
+      transition: transform 0.4s ease;
+    }
+    .proj-modal-logo-panel:hover img { transform: scale(1.04); }
+    @media (max-width: 750px) {
+      .proj-modal-logo-panel { min-height: 280px; padding: 2.5rem; }
     }
     .work-card { cursor: pointer; }
     @media (max-width: 750px) {
@@ -957,7 +956,6 @@
           <div class="work-card-title">Flemish Club<br>Brussels NGO</div>
           <div class="work-card-sub">Brand identity · Website · Campaign materials</div>
         </div>
-        <div class="work-card-logo"><img src="assets/logos/Gemini_Generated_Image_1.png" alt="Flemish Club Brussels logo"></div>
       </div>
       <div class="work-card" data-project="salon">
         <div class="work-card-top">
@@ -968,7 +966,6 @@
           <div class="work-card-title">Salon<br>Liberté</div>
           <div class="work-card-sub">Institutional introductions · Partner matching</div>
         </div>
-        <div class="work-card-logo"><img src="assets/logos/Salon_Liberte_Logo_1.png" alt="Salon Liberté logo"></div>
       </div>
       <div class="work-card" data-project="eujobs">
         <div class="work-card-top">
@@ -979,7 +976,6 @@
           <div class="work-card-title">EU Jobs<br>Co.</div>
           <div class="work-card-sub">EU stakeholder comms · Media · Thought leadership</div>
         </div>
-        <div class="work-card-logo"><img src="assets/logos/eu_job_logo.png" alt="EU Jobs Co. logo"></div>
       </div>
       <div class="work-card featured-blue" data-project="kulbruxmun">
         <div class="work-card-top">
@@ -990,7 +986,6 @@
           <div class="work-card-title">KUL<br>BRUXMUN</div>
           <div class="work-card-sub">Full brand overhaul · Web · Stakeholder outreach</div>
         </div>
-        <div class="work-card-logo"><img src="assets/logos/KULBRUXMUN_LOGO_KUL_BLUE_4.png" alt="KULBRUXMUN logo"></div>
       </div>
     </div>
   </section>
@@ -1070,9 +1065,8 @@
           <div class="proj-modal-meta" id="modal-meta"></div>
         </div>
         <div class="proj-modal-right">
-          <div class="proj-modal-img-grid">
-            <img id="modal-img1" src="" alt="" />
-            <img id="modal-img2" src="" alt="" />
+          <div class="proj-modal-logo-panel" id="modal-logo-panel">
+            <img id="modal-logo" src="" alt="" />
           </div>
         </div>
       </div>
@@ -1225,8 +1219,7 @@
           { label: 'Scope', value: 'Brand redesign · Website · Custom event management tool' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
-        img1: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80&auto=format&fit=crop',
-        img2: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&q=80&auto=format&fit=crop'
+        logo: 'assets/logos/Gemini_Generated_Image_1.png'
       },
       salon: {
         tag: 'Network Access & Strategy',
@@ -1236,8 +1229,7 @@
           { label: 'Scope', value: 'Investor matchmaking · Organisational strategy' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
-        img1: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=900&q=80&auto=format&fit=crop',
-        img2: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80&auto=format&fit=crop'
+        logo: 'assets/logos/Salon_Liberte_Logo_1.png'
       },
       eujobs: {
         tag: 'Branding & Growth',
@@ -1247,8 +1239,7 @@
           { label: 'Scope', value: 'Brand identity · LinkedIn growth strategy · Lead generation' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
-        img1: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80&auto=format&fit=crop',
-        img2: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d1?w=900&q=80&auto=format&fit=crop'
+        logo: 'assets/logos/eu_job_logo.png'
       },
       kulbruxmun: {
         tag: 'Branding & Negotiation',
@@ -1258,8 +1249,7 @@
           { label: 'Scope', value: 'Brand overhaul · Instagram strategy · Stakeholder negotiation' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
-        img1: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop',
-        img2: 'https://images.unsplash.com/photo-1577563908411-5077b6dc7624?w=900&q=80&auto=format&fit=crop'
+        logo: 'assets/logos/KULBRUXMUN_LOGO_KUL_BLUE_4.png'
       }
     };
 
@@ -1272,8 +1262,9 @@
       document.getElementById('modal-tag').textContent   = p.tag;
       document.getElementById('modal-title').textContent = p.title;
       document.getElementById('modal-desc').textContent  = p.desc;
-      document.getElementById('modal-img1').src = p.img1;
-      document.getElementById('modal-img2').src = p.img2;
+      document.getElementById('modal-logo').src = p.logo;
+      document.getElementById('modal-logo').alt = p.title + ' logo';
+      document.getElementById('modal-logo-panel').classList.toggle('tone-blue', id === 'kulbruxmun');
       const meta = document.getElementById('modal-meta');
       meta.innerHTML = p.meta.map(m => `<span>${m.label}<b>${m.value}</b></span>`).join('');
       modal.classList.add('open');
