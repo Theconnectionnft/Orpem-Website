@@ -252,72 +252,86 @@
     .btn-red:hover { background: transparent; color: #D92938; }
 
     /* Service tabs */
-    .service-tabs {
-      display: flex;
-      gap: 0;
-      border-bottom: 1px solid rgba(0,0,0,0.1);
-      margin-bottom: 0;
-    }
-    .service-tab {
-      padding: 0.9rem 1.8rem;
-      font-size: 0.7rem;
-      letter-spacing: 0.14em;
-      text-transform: uppercase;
-      cursor: pointer;
-      border-bottom: 2px solid transparent;
-      margin-bottom: -1px;
-      color: #999B9A;
-      transition: color 0.2s, border-color 0.2s;
-    }
-    .service-tab:hover { color: #111; }
-    .service-tab.active { color: #D92938; border-bottom-color: #D92938; }
-
-    .service-panels { padding-top: 0; }
-    .service-panel { display: none; }
-    .service-panel.active { display: block; }
-
-    .service-panel-inner {
+    /* Services tile grid — same visual language as Selected Work */
+    .services-grid {
       display: grid;
-      grid-template-columns: 1fr 1fr;
-      gap: 4rem;
-      padding: 3rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.07);
+      grid-template-columns: repeat(3, 1fr);
+      gap: 1px;
+      background: rgba(0,0,0,0.08);
+      border: 1px solid rgba(0,0,0,0.08);
+      margin-top: 3rem;
     }
-    .service-panel-inner:last-child { border-bottom: none; }
-    .service-panel-left h3 {
-      font-size: clamp(1.6rem, 3vw, 2.5rem);
+    .service-card {
+      background: #F5F4F2;
+      padding: 2.5rem;
+      min-height: 480px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+      position: relative;
+      transition: background 0.2s;
+    }
+    .service-card:hover { background: #fafafa; }
+    .service-card.featured { background: #D92938; color: #fff; }
+    .service-card.featured:hover { background: #c02030; }
+    .service-card.featured-blue { background: #03738C; color: #fff; }
+    .service-card.featured-blue:hover { background: #025e72; }
+    .service-card.featured-blue .service-card-tag { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.4); }
+    .service-card.featured-blue .service-card-arrow { color: rgba(255,255,255,0.6); }
+    .service-card.featured-blue .service-card-title { color: #fff; }
+    .service-card.featured-blue .service-card-desc { color: rgba(255,255,255,0.75); }
+    .service-card.featured-blue .service-card-list { border-top-color: rgba(255,255,255,0.22); }
+    .service-card.featured-blue .service-card-list li { color: rgba(255,255,255,0.8); }
+    .service-card-top {
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-start;
+    }
+    .service-card-tag {
+      font-size: 0.6rem;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: #03738C;
+      border: 1px solid #03738C;
+      border-radius: 0;
+      padding: 0.3rem 0.6rem;
+    }
+    .service-card.featured .service-card-tag {
+      color: rgba(255,255,255,0.8);
+      border-color: rgba(255,255,255,0.4);
+    }
+    .service-card-arrow { font-size: 1.2rem; color: #999B9A; }
+    .service-card.featured .service-card-arrow { color: rgba(255,255,255,0.6); }
+    .service-card-title {
+      font-size: clamp(1.3rem, 2.3vw, 1.9rem);
       font-weight: 900;
       letter-spacing: -0.01em;
-      color: #D92938;
-      margin-bottom: 1rem;
+      line-height: 1.15;
+      color: #111;
+      margin-top: 2.2rem;
     }
-    .service-panel-left p {
-      font-size: 0.92rem;
-      line-height: 1.75;
-      color: #555;
-    }
-    .service-list {
-      list-style: none;
-      padding-top: 0.5rem;
-    }
-    .service-list li {
-      font-size: 0.88rem;
+    .service-card.featured .service-card-title { color: #fff; }
+    .service-card-desc {
+      font-size: 0.85rem;
       line-height: 1.7;
-      color: #444;
-      padding: 0.75rem 0;
-      border-bottom: 1px solid rgba(0,0,0,0.07);
-      display: flex;
-      align-items: center;
-      gap: 0.7rem;
+      color: #666;
+      margin-top: 0.9rem;
     }
-    .service-list li::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%;
-      background: #03738C;
-      flex-shrink: 0;
+    .service-card.featured .service-card-desc { color: rgba(255,255,255,0.75); }
+    .service-card-list {
+      list-style: none;
+      margin-top: 1.4rem;
+      padding-top: 1.1rem;
+      border-top: 1px solid rgba(0,0,0,0.08);
     }
-    .service-list li:last-child { border-bottom: none; }
+    .service-card.featured .service-card-list { border-top-color: rgba(255,255,255,0.22); }
+    .service-card-list li {
+      font-size: 0.76rem;
+      line-height: 1.7;
+      color: #555;
+      padding: 0.3rem 0;
+    }
+    .service-card.featured .service-card-list li { color: rgba(255,255,255,0.8); }
 
     /* ── WORK ─────────────────────────────────────────────────── */
     .work-grid {
@@ -345,6 +359,38 @@
       color: #fff;
     }
     .work-card.featured:hover { background: #c02030; }
+    .work-card.featured-blue { background: #03738C; color: #fff; }
+    .work-card.featured-blue:hover { background: #025e72; }
+    .work-card.featured-blue .work-tag { color: rgba(255,255,255,0.8); border-color: rgba(255,255,255,0.4); }
+    .work-card.featured-blue .work-arrow { color: rgba(255,255,255,0.6); }
+    .work-card.featured-blue .work-card-title { color: #fff; }
+    .work-card.featured-blue .work-card-sub { color: rgba(255,255,255,0.65); }
+    .work-card-logo {
+      position: absolute;
+      bottom: 1.6rem;
+      right: 1.6rem;
+      width: 60px;
+      height: 60px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.08);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 9px;
+      opacity: 0;
+      transform: translateY(12px) scale(0.92);
+      filter: grayscale(100%);
+      transition: opacity 0.35s ease, transform 0.35s ease, filter 0.35s ease;
+      pointer-events: none;
+    }
+    .work-card-logo img { max-width: 100%; max-height: 100%; object-fit: contain; display: block; }
+    .work-card:hover .work-card-logo {
+      opacity: 1;
+      transform: translateY(0) scale(1);
+      filter: grayscale(0%);
+    }
+    .work-card.featured .work-card-logo,
+    .work-card.featured-blue .work-card-logo { border-color: rgba(255,255,255,0.35); }
     .work-card-top {
       display: flex;
       justify-content: space-between;
@@ -462,7 +508,7 @@
       line-height: 1.5;
     }
 
-    /* Team accordion */
+    /* Team grid */
     .team-title-row {
       display: flex;
       justify-content: space-between;
@@ -477,41 +523,69 @@
       max-width: 340px;
       text-align: right;
     }
-    .team-accordion { border-top: 1px solid rgba(0,0,0,0.09); }
-    .team-row { border-bottom: 1px solid rgba(0,0,0,0.09); }
-    .team-row-header {
-      display: flex;
-      align-items: center;
-      padding: 1.3rem 0;
-      cursor: pointer;
-      gap: 1rem;
-      transition: background 0.15s, padding-left 0.15s;
+    .team-grid-label {
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #03738C;
+      margin: 0 0 1.6rem;
     }
-    .team-row-header:hover { padding-left: 0.5rem; background: rgba(217,41,56,0.03); }
-    .team-row.open .team-row-header { padding-left: 0.5rem; background: rgba(217,41,56,0.04); }
-    .team-row-dot { width: 7px; height: 7px; border-radius: 50%; background: #03738C; flex-shrink: 0; }
-    .team-row-name { font-size: clamp(1.3rem, 2.8vw, 1.9rem); font-weight: 700; letter-spacing: -0.01em; color: #111; }
-    .team-row.open .team-row-name { color: #D92938; }
-    .team-row-role { font-size: 0.6rem; letter-spacing: 0.18em; text-transform: uppercase; color: #03738C; }
-    .team-row-chevron { margin-left: auto; color: #03738C; font-size: 0.95rem; }
-    .team-row-body { display: none; padding: 0 0 2rem 1.5rem; }
-    .team-row.open .team-row-body { display: grid; grid-template-columns: 180px 1fr; gap: 2rem; }
-    .team-photo {
-      width: 180px; height: 220px;
-      background: #f5f5f5;
-      border-radius: 4px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      color: #ccc;
-      font-size: 0.68rem;
-      letter-spacing: 0.12em;
-      border: 1px solid rgba(0,0,0,0.07);
+    .team-grid {
+      display: grid;
+      grid-template-columns: repeat(2, 1fr);
+      gap: 2.4rem 1.5rem;
+      border-top: 1px solid rgba(0,0,0,0.09);
+      padding-top: 2.2rem;
     }
-    .team-bio { font-size: 0.88rem; line-height: 1.8; color: #555; margin-bottom: 1.2rem; }
-    .team-links { display: flex; gap: 1rem; flex-wrap: wrap; }
-    .team-links a { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #03738C; border-bottom: 1px solid #03738C; padding-bottom: 1px; }
-    .team-links a:hover { color: #D92938; border-color: #D92938; }
+    @media (min-width: 640px) { .team-grid { grid-template-columns: repeat(3, 1fr); } }
+    @media (min-width: 980px) { .team-grid { grid-template-columns: repeat(6, 1fr); } }
+    .team-card { position: relative; display: flex; flex-direction: column; align-items: flex-start; cursor: pointer; }
+    .team-avatar {
+      width: 64px; height: 64px;
+      border-radius: 50%;
+      border: 1px solid rgba(0,0,0,0.1);
+      padding: 2px;
+      background: #fff;
+      transition: border-color 0.15s;
+    }
+    .team-avatar img { display: block; width: 100%; height: 100%; border-radius: 50%; object-fit: cover; }
+    .team-card:hover .team-avatar { border-color: #D92938; }
+    .team-name { display: block; margin-top: 0.85rem; font-size: 0.9rem; font-weight: 700; letter-spacing: -0.01em; color: #111; transition: color 0.15s; }
+    .team-card:hover .team-name { color: #D92938; }
+    .team-role { display: block; margin-top: 0.2rem; font-size: 0.6rem; letter-spacing: 0.16em; text-transform: uppercase; color: #03738C; }
+
+    /* Team contact popover */
+    .team-popover {
+      position: absolute;
+      top: calc(100% + 0.6rem);
+      left: 0;
+      z-index: 40;
+      min-width: 188px;
+      background: #fff;
+      border: 1px solid rgba(0,0,0,0.09);
+      border-radius: 8px;
+      padding: 1rem 1.1rem;
+      box-shadow: 0 16px 40px rgba(0,0,0,0.13);
+      opacity: 0;
+      transform: translateY(8px);
+      pointer-events: none;
+      transition: opacity 0.16s ease, transform 0.16s ease;
+    }
+    .team-card.popover-open .team-popover,
+    .team-card:hover .team-popover { opacity: 1; transform: translateY(0); pointer-events: all; }
+    .team-popover-name { display: block; font-size: 0.86rem; font-weight: 700; letter-spacing: -0.01em; color: #111; }
+    .team-popover-role { display: block; margin-top: 0.15rem; font-size: 0.58rem; letter-spacing: 0.15em; text-transform: uppercase; color: #03738C; }
+    .team-popover-links { display: flex; gap: 0.55rem; margin-top: 0.9rem; }
+    .team-popover-links a {
+      width: 30px; height: 30px;
+      display: flex; align-items: center; justify-content: center;
+      border: 1px solid rgba(0,0,0,0.1);
+      border-radius: 50%;
+      color: #03738C;
+      transition: background 0.15s, border-color 0.15s, color 0.15s;
+    }
+    .team-popover-links a:hover { background: #D92938; border-color: #D92938; color: #fff; }
+    .team-popover-links svg { width: 14px; height: 14px; }
 
     /* ── CONTACT ─────────────────────────────────────────────────── */
     .contact-section {
@@ -746,11 +820,11 @@
 
     /* ── RESPONSIVE ───────────────────────────────────────────── */
     @media (max-width: 900px) {
-      .about-layout, .service-panel-inner, .work-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .about-layout, .work-grid { grid-template-columns: 1fr; gap: 2rem; }
+      .services-grid { grid-template-columns: 1fr; }
       .stats-row { grid-template-columns: 1fr 1fr; }
       .stat-item:nth-child(2) { border-right: none; }
       .services-header { flex-direction: column; }
-      .team-row.open .team-row-body { grid-template-columns: 1fr; }
       .nav-links { display: none; }
       footer { flex-direction: column; gap: 1.5rem; text-align: center; }
       .footer-nav { justify-content: center; }
@@ -811,65 +885,55 @@
           Three capabilities, one goal: <span class="highlight-blue">making your organisation matter</span> in the EU ecosystem.
         </p>
       </div>
-      <div class="services-meta">
-        <p>We work with NGOs, lobby groups, and startups operating in or entering the Brussels policy landscape — providing the branding, communications, and connections they need to succeed.</p>
-        <a href="#contact" class="btn-red">Start a Conversation ↗</a>
-      </div>
     </div>
 
-    <!-- Tabs -->
-    <div class="service-tabs" style="margin-top:3rem;">
-      <div class="service-tab active" data-tab="branding">Branding & Digital</div>
-      <div class="service-tab" data-tab="comms">Communications</div>
-      <div class="service-tab" data-tab="network">Network Access</div>
-    </div>
-
-    <div class="service-panels">
-      <!-- Branding panel -->
-      <div class="service-panel active" id="tab-branding">
-        <div class="service-panel-inner">
-          <div class="service-panel-left">
-            <h3>Brand &<br>Digital Presence</h3>
-            <p>Your identity is your first argument. We create brands and digital platforms that build credibility from the first impression — whether you're addressing MEPs, commissioners, or investors.</p>
-          </div>
-          <ul class="service-list">
+    <!-- Services tile grid -->
+    <div class="services-grid">
+      <div class="service-card featured">
+        <div class="service-card-top">
+          <span class="service-card-tag">Branding & Digital</span>
+          <span class="service-card-arrow">↗</span>
+        </div>
+        <div>
+          <div class="service-card-title">Brand &<br>Digital Presence</div>
+          <p class="service-card-desc">Your identity is your first argument. We build brands and digital platforms that establish credibility from the first impression — whether you're addressing MEPs, commissioners, or investors.</p>
+          <ul class="service-card-list">
             <li>Brand strategy, positioning & naming</li>
-            <li>Visual identity systems & design guidelines</li>
+            <li>Visual identity systems & guidelines</li>
             <li>Website design & development</li>
             <li>Reports, position papers & pitch decks</li>
-            <li>Visual communication templates</li>
           </ul>
         </div>
       </div>
-      <!-- Comms panel -->
-      <div class="service-panel" id="tab-comms">
-        <div class="service-panel-inner">
-          <div class="service-panel-left">
-            <h3>Strategic<br>Communications</h3>
-            <p>From EU media relations to digital campaigns — we help you communicate with precision, consistency, and real impact. In Brussels, the right message at the right moment is everything.</p>
-          </div>
-          <ul class="service-list">
+      <div class="service-card">
+        <div class="service-card-top">
+          <span class="service-card-tag">Communications</span>
+          <span class="service-card-arrow">↗</span>
+        </div>
+        <div>
+          <div class="service-card-title">Strategic<br>Communications</div>
+          <p class="service-card-desc">From EU media relations to digital campaigns — we help you communicate with precision, consistency, and real impact. In Brussels, the right message at the right moment is everything.</p>
+          <ul class="service-card-list">
             <li>EU stakeholder communications strategy</li>
             <li>Media relations & press engagement</li>
             <li>Social media management & campaigns</li>
-            <li>Newsletter & content programmes</li>
             <li>Position papers, op-eds & thought leadership</li>
           </ul>
         </div>
       </div>
-      <!-- Network panel -->
-      <div class="service-panel" id="tab-network">
-        <div class="service-panel-inner">
-          <div class="service-panel-left">
-            <h3>Network &<br>Access</h3>
-            <p>We are connectors at heart. Our network spans EU institutions, policy think tanks, media, investors, and civil society — deployed purposefully on your behalf.</p>
-          </div>
-          <ul class="service-list">
-            <li>Introductions to EU Commission, Parliament & agencies</li>
+      <div class="service-card featured-blue">
+        <div class="service-card-top">
+          <span class="service-card-tag">Network Access</span>
+          <span class="service-card-arrow">↗</span>
+        </div>
+        <div>
+          <div class="service-card-title">Network &<br>Access</div>
+          <p class="service-card-desc">We are connectors at heart. Our network spans EU institutions, policy think tanks, media, investors, and civil society — deployed purposefully on your behalf.</p>
+          <ul class="service-card-list">
+            <li>Introductions to Commission, Parliament & agencies</li>
             <li>Partner & coalition matching</li>
             <li>EU funding bid co-applicant sourcing</li>
             <li>Impact investor & philanthropic access</li>
-            <li>Think tank & civil society connections</li>
           </ul>
         </div>
       </div>
@@ -893,6 +957,7 @@
           <div class="work-card-title">Flemish Club<br>Brussels NGO</div>
           <div class="work-card-sub">Brand identity · Website · Campaign materials</div>
         </div>
+        <div class="work-card-logo"><img src="assets/logos/flemish-logo.png" alt="Flemish Club Brussels logo"></div>
       </div>
       <div class="work-card" data-project="salon">
         <div class="work-card-top">
@@ -903,6 +968,7 @@
           <div class="work-card-title">Salon<br>Liberté</div>
           <div class="work-card-sub">Institutional introductions · Partner matching</div>
         </div>
+        <div class="work-card-logo"><img src="assets/logos/salon-logo.png" alt="Salon Liberté logo"></div>
       </div>
       <div class="work-card" data-project="eujobs">
         <div class="work-card-top">
@@ -913,8 +979,9 @@
           <div class="work-card-title">EU Jobs<br>Co.</div>
           <div class="work-card-sub">EU stakeholder comms · Media · Thought leadership</div>
         </div>
+        <div class="work-card-logo"><img src="assets/logos/eujobs-logo.png" alt="EU Jobs Co. logo"></div>
       </div>
-      <div class="work-card" data-project="kulbruxmun">
+      <div class="work-card featured-blue" data-project="kulbruxmun">
         <div class="work-card-top">
           <span class="work-tag">Branding & Comms</span>
           <span class="work-arrow">↗</span>
@@ -923,6 +990,7 @@
           <div class="work-card-title">KUL<br>BRUXMUN</div>
           <div class="work-card-sub">Full brand overhaul · Web · Stakeholder outreach</div>
         </div>
+        <div class="work-card-logo"><img src="assets/logos/kulbruxmun-logo.png" alt="KULBRUXMUN logo"></div>
       </div>
     </div>
   </section>
@@ -957,52 +1025,9 @@
       <h3 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-0.01em;color:#D92938;">The team</h3>
       <p class="team-subtitle">Senior specialists only — each with deep roots in the Brussels ecosystem.</p>
     </div>
-    <div class="team-accordion">
-      <div class="team-row">
-        <div class="team-row-header">
-          <span class="team-row-dot"></span>
-          <span class="team-row-name">Lead Consultant</span>
-          <span class="team-row-role">— Strategy & Network</span>
-          <span class="team-row-chevron">↓</span>
-        </div>
-        <div class="team-row-body">
-          <div class="team-photo">PHOTO</div>
-          <div>
-            <p class="team-bio">15+ years navigating the Brussels policy scene. Former advisor to EU institutions with deep relationships across the Commission, Parliament, and civil society. Leads strategy and high-level network facilitation for every ORPEM client.</p>
-            <div class="team-links"><a href="#">LinkedIn</a><a href="#">Email</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="team-row">
-        <div class="team-row-header">
-          <span class="team-row-dot"></span>
-          <span class="team-row-name">Creative Director</span>
-          <span class="team-row-role">— Branding & Digital</span>
-          <span class="team-row-chevron">↓</span>
-        </div>
-        <div class="team-row-body">
-          <div class="team-photo">PHOTO</div>
-          <div>
-            <p class="team-bio">Brand and digital specialist with a decade of experience building identities for advocacy organisations, NGOs, and EU-facing startups. Leads all branding, web, and visual communication projects at ORPEM.</p>
-            <div class="team-links"><a href="#">Portfolio</a><a href="#">LinkedIn</a></div>
-          </div>
-        </div>
-      </div>
-      <div class="team-row">
-        <div class="team-row-header">
-          <span class="team-row-dot"></span>
-          <span class="team-row-name">Communications Lead</span>
-          <span class="team-row-role">— EU Media & Campaigns</span>
-          <span class="team-row-chevron">↓</span>
-        </div>
-        <div class="team-row-body">
-          <div class="team-photo">PHOTO</div>
-          <div>
-            <p class="team-bio">Multilingual communications strategist with experience in EU affairs journalism, campaign management, and stakeholder engagement. Manages messaging, media relations, and digital campaigns for ORPEM clients.</p>
-            <div class="team-links"><a href="#">LinkedIn</a><a href="#">Email</a></div>
-          </div>
-        </div>
-      </div>
+    <p class="team-grid-label">Leadership</p>
+    <div class="team-grid" id="team-grid">
+      <!-- cards injected by JS from teamMembers data -->
     </div>
   </section>
 
@@ -1016,7 +1041,7 @@
       <div class="contact-cta">
         <p class="contact-eyebrow">Let's work together</p>
         <h2 class="contact-title">Get in<br>touch.</h2>
-        <a href="mailto:hello@orpem.eu" class="contact-email-link">hello@orpem.eu ↗</a>
+        <a href="mailto:info@orpem.eu" class="contact-email-link">info@orpem.eu ↗</a>
       </div>
     </div>
     <!-- Giant cropped brand word -->
@@ -1026,7 +1051,7 @@
     <!-- Footer bar -->
     <div class="contact-bar">
       <span>2025 © ORPEM</span>
-      <span>hello@orpem.eu</span>
+      <span>info@orpem.eu</span>
       <span>Brussels, Belgium</span>
       <span>EN · FR · NL</span>
     </div>
@@ -1143,47 +1168,94 @@
       });
     })();
 
+    /* ── Team grid + contact popovers ── */
+    const ICON_LINKEDIN = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.25c-0.97 0-1.75-0.79-1.75-1.75S5.03 4.75 6 4.75s1.75 0.78 1.75 1.75S6.97 8.25 6 8.25zM20 19h-3v-4.5c0-1.07-0.02-2.45-1.5-2.45-1.5 0-1.73 1.17-1.73 2.38V19h-3v-9h2.88v1.23h0.04c0.4-0.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59V19z"/></svg>';
+    const ICON_MAIL     = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 7l9 6 9-6"/></svg>';
+    const ICON_PHONE    = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
+
+    const teamMembers = [
+      { name: 'Founding Partner',    role: 'Strategy & Network',       avatar: 'https://i.pravatar.cc/200?img=12', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000001' },
+      { name: 'Creative Director',   role: 'Branding & Digital',       avatar: 'https://i.pravatar.cc/200?img=33', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000002' },
+      { name: 'Communications Lead', role: 'EU Media & Campaigns',     avatar: 'https://i.pravatar.cc/200?img=47', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000003' },
+      { name: 'Network Manager',     role: 'Institutional Relations',  avatar: 'https://i.pravatar.cc/200?img=51', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000004' },
+      { name: 'Project Lead',        role: 'Client Delivery',          avatar: 'https://i.pravatar.cc/200?img=14', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000005' },
+      { name: 'Operations Lead',     role: 'Admin & Finance',          avatar: 'https://i.pravatar.cc/200?img=44', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000006' }
+    ];
+
+    const teamGrid = document.getElementById('team-grid');
+    if (teamGrid) {
+      teamGrid.innerHTML = teamMembers.map(m => `
+        <div class="team-card">
+          <div class="team-avatar"><img src="${m.avatar}" alt="${m.name}" loading="lazy" width="200" height="200"></div>
+          <span class="team-name">${m.name}</span>
+          <span class="team-role">${m.role}</span>
+          <div class="team-popover">
+            <span class="team-popover-name">${m.name}</span>
+            <span class="team-popover-role">${m.role}</span>
+            <div class="team-popover-links">
+              <a href="${m.linkedin}" target="_blank" rel="noopener" aria-label="LinkedIn">${ICON_LINKEDIN}</a>
+              <a href="mailto:${m.email}" aria-label="Email">${ICON_MAIL}</a>
+              <a href="tel:${m.phone}" aria-label="Phone">${ICON_PHONE}</a>
+            </div>
+          </div>
+        </div>
+      `).join('');
+
+      teamGrid.querySelectorAll('.team-card').forEach(card => {
+        card.addEventListener('click', (e) => {
+          if (e.target.closest('.team-popover-links')) return; // let icon links work normally
+          e.stopPropagation();
+          const isOpen = card.classList.contains('popover-open');
+          teamGrid.querySelectorAll('.team-card').forEach(c => c.classList.remove('popover-open'));
+          if (!isOpen) card.classList.add('popover-open');
+        });
+      });
+      document.addEventListener('click', () => {
+        teamGrid.querySelectorAll('.team-card').forEach(c => c.classList.remove('popover-open'));
+      });
+    }
+
     /* ── Project modal ── */
     const projects = {
       flemish: {
-        tag: 'Branding & Web',
+        tag: 'Branding & Product',
         title: 'Flemish Club Brussels NGO',
-        desc: 'We developed a full brand identity for the Flemish Club Brussels, a civil society organisation promoting Flemish culture and interests in the Belgian capital. The project covered visual identity, brand guidelines, and a new website — positioning the organisation with clarity and credibility across its multilingual stakeholder audience.',
+        desc: 'We led a brand redesign for the Flemish Club Brussels to give the organisation a more modern, contemporary identity, paired with a full website overhaul. Beyond the rebrand, we built the organisation a proprietary event management system — a purpose-built digital tool that lets the team plan, organise, and run its events from a single platform, replacing manual processes with one designed around how the organisation actually works.',
         meta: [
-          { label: 'Scope', value: 'Brand identity · Website · Campaign materials' },
+          { label: 'Scope', value: 'Brand redesign · Website · Custom event management tool' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
         img1: 'https://images.unsplash.com/photo-1497366216548-37526070297c?w=900&q=80&auto=format&fit=crop',
         img2: 'https://images.unsplash.com/photo-1561070791-2526d30994b5?w=900&q=80&auto=format&fit=crop'
       },
       salon: {
-        tag: 'Network Access',
+        tag: 'Network Access & Strategy',
         title: 'Salon Liberté',
-        desc: 'ORPEM facilitated Salon Liberté\'s entry into the Brussels policy and civil society ecosystem. Through targeted introductions to EU institutions, think tanks, and relevant media stakeholders, we helped the organisation build the relationships needed to advance its mission within the European landscape.',
+        desc: 'After Salon Liberté\'s previous sponsor withdrew its support following a shift in the political landscape of its home country, ORPEM stepped in to secure the organisation\'s future. We connected the organisation with a new investor and guided it through an organisational pivot — repositioning its mission and operating model to fit its new partnership and ensure long-term stability.',
         meta: [
-          { label: 'Scope', value: 'Institutional introductions · Partner matching' },
+          { label: 'Scope', value: 'Investor matchmaking · Organisational strategy' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
         img1: 'https://images.unsplash.com/photo-1560472354-b33ff0c44a43?w=900&q=80&auto=format&fit=crop',
         img2: 'https://images.unsplash.com/photo-1521791136064-7986c2920216?w=900&q=80&auto=format&fit=crop'
       },
       eujobs: {
-        tag: 'Communications',
+        tag: 'Branding & Growth',
         title: 'EU Jobs Co.',
-        desc: 'We designed and executed a strategic communications programme for EU Jobs Co., targeting European affairs professionals and institutions. The campaign combined stakeholder engagement, media outreach, and a content programme anchored to the EU political calendar — building the platform\'s visibility among its core audience.',
+        desc: 'We carried out a full rebrand of EU Jobs Co., followed by a growth strategy built around LinkedIn. Through a structured content and outreach programme, we grew the company\'s LinkedIn following to over 2,000 and turned the platform into its primary acquisition channel — generating roughly 80% of all company leads. The momentum contributed to the company securing venture capital investment in San Francisco, where it has since refocused its operations on R&D.',
         meta: [
-          { label: 'Scope', value: 'Stakeholder comms · Media · Thought leadership' },
+          { label: 'Scope', value: 'Brand identity · LinkedIn growth strategy · Lead generation' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
         img1: 'https://images.unsplash.com/photo-1504711434969-e33886168f5c?w=900&q=80&auto=format&fit=crop',
         img2: 'https://images.unsplash.com/photo-1573164713714-d95e436ab8d1?w=900&q=80&auto=format&fit=crop'
       },
       kulbruxmun: {
-        tag: 'Branding & Comms',
+        tag: 'Branding & Negotiation',
         title: 'KULBRUXMUN',
-        desc: 'A full brand overhaul and communications relaunch for KULBRUXMUN, the KU Leuven Brussels Model United Nations programme. We redesigned the visual identity, rebuilt the digital presence, and developed an outreach strategy connecting the programme with EU institutions, diplomatic communities, and student networks across Europe.',
+        desc: 'We led a full brand overhaul and Instagram-led marketing strategy for KULBRUXMUN, the KU Leuven Brussels Model United Nations programme. Alongside the rebrand, we represented the organisation in stakeholder negotiations with STUVO\'s junior enterprise fund — securing a reclassification of its operations that resulted in a significant increase in its financial subsidy.',
         meta: [
-          { label: 'Scope', value: 'Brand overhaul · Web · Stakeholder outreach' },
+          { label: 'Scope', value: 'Brand overhaul · Instagram strategy · Stakeholder negotiation' },
           { label: 'Location', value: 'Brussels, Belgium' }
         ],
         img1: 'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=900&q=80&auto=format&fit=crop',
@@ -1286,25 +1358,6 @@
       nav.className = over ? 'over-photo' : '';
     });
 
-    /* ── Service tabs ── */
-    document.querySelectorAll('.service-tab').forEach(tab => {
-      tab.addEventListener('click', () => {
-        document.querySelectorAll('.service-tab').forEach(t => t.classList.remove('active'));
-        document.querySelectorAll('.service-panel').forEach(p => p.classList.remove('active'));
-        tab.classList.add('active');
-        document.getElementById('tab-' + tab.dataset.tab).classList.add('active');
-      });
-    });
-
-    /* ── Team accordion ── */
-    document.querySelectorAll('.team-row-header').forEach(h => {
-      h.addEventListener('click', () => {
-        const row = h.closest('.team-row');
-        const open = row.classList.contains('open');
-        document.querySelectorAll('.team-row').forEach(r => r.classList.remove('open'));
-        if (!open) row.classList.add('open');
-      });
-    });
   </script>
 </body>
 </html>
