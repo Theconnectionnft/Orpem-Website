@@ -1081,8 +1081,8 @@
       const canvas = document.getElementById('hero-canvas');
       if (!canvas || typeof THREE === 'undefined') return;
 
-      const renderer = new THREE.WebGLRenderer({ canvas, antialias: true, alpha: false });
-      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+      const renderer = new THREE.WebGLRenderer({ canvas, antialias: false, alpha: false, powerPreference: 'high-performance' });
+      renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1));
 
       const scene = new THREE.Scene();
       const camera = new THREE.OrthographicCamera(-1, 1, 1, -1, 0, 1);
@@ -1156,7 +1156,15 @@
       window.addEventListener('resize', resize);
       resize();
 
+      let heroVisible = true;
+      const heroObserver = new IntersectionObserver(
+        ([entry]) => { heroVisible = entry.isIntersecting; },
+        { threshold: 0 }
+      );
+      heroObserver.observe(canvas);
+
       renderer.setAnimationLoop(() => {
+        if (!heroVisible) return;
         uniforms.u_time.value = clock.getElapsedTime();
         renderer.render(scene, camera);
       });
@@ -1168,13 +1176,10 @@
     const ICON_PHONE    = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
 
     const teamMembers = [
-      { name: 'Theo M. Piepers Jr.', role: 'Founding Partner — Strategy & Network', avatar: 'assets/IMG_3224.jpg', linkedin: 'https://www.linkedin.com/in/theo-piepers-jr-892823165/', email: 'pieperstheo@gmail.com',  phone: '+421905913272' },
-      { name: 'Creative Director',   role: 'Branding & Digital',       avatar: 'https://i.pravatar.cc/200?img=33', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000002' },
-      { name: 'Communications Lead', role: 'EU Media & Campaigns',     avatar: 'https://i.pravatar.cc/200?img=47', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000003' },
-      { name: 'Network Manager',     role: 'Institutional Relations',  avatar: 'https://i.pravatar.cc/200?img=51', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000004' },
-      { name: 'Project Lead',        role: 'Client Delivery',          avatar: 'https://i.pravatar.cc/200?img=14', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000005' },
-      { name: 'Operations Lead',     role: 'Admin & Finance',          avatar: 'https://i.pravatar.cc/200?img=44', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000006' },
-      { name: 'John Telephone',      role: 'Company Pet',              avatar: 'assets/IMG_3364 (1).jpg', linkedin: 'https://www.linkedin.com/company/orpem', email: 'info@orpem.eu',  phone: '+32400000007' }
+      { name: 'Theo M. Piepers Jr.', role: 'Founding Partner', avatar: 'assets/IMG_3224.jpg',            linkedin: 'https://www.linkedin.com/in/theo-piepers-jr-892823165/', email: 'pieperstheo@gmail.com', phone: '+421905913272' },
+      { name: 'Rayane Oualdou',     role: 'Founding Partner', avatar: 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Crect%20width%3D%27200%27%20height%3D%27200%27%20fill%3D%27%23999B9A%27/%3E%3Ctext%20x%3D%27100%27%20y%3D%27118%27%20text-anchor%3D%27middle%27%20font-family%3D%27Helvetica%20Neue%2CArial%2Csans-serif%27%20font-size%3D%2770%27%20font-weight%3D%27700%27%20fill%3D%27%23fff%27%3ERO%3C/text%3E%3C/svg%3E', linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32400000002' },
+      { name: 'Artur Parajňák',     role: 'Founding Partner', avatar: 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Crect%20width%3D%27200%27%20height%3D%27200%27%20fill%3D%27%23999B9A%27/%3E%3Ctext%20x%3D%27100%27%20y%3D%27118%27%20text-anchor%3D%27middle%27%20font-family%3D%27Helvetica%20Neue%2CArial%2Csans-serif%27%20font-size%3D%2770%27%20font-weight%3D%27700%27%20fill%3D%27%23fff%27%3EAP%3C/text%3E%3C/svg%3E', linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32400000003' },
+      { name: 'John Telephone',     role: 'Company Pet',      avatar: 'assets/IMG_3364 (1).jpg',          linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32400000004' }
     ];
 
     const teamGrid = document.getElementById('team-grid');
@@ -1341,13 +1346,19 @@
     /* ── Nav dark over photo sections ── */
     const nav = document.getElementById('main-nav');
     const photoSections = document.querySelectorAll('.contact-section');
+    let scrollTicking = false;
     window.addEventListener('scroll', () => {
-      const y = window.scrollY;
-      let over = false;
-      photoSections.forEach(s => {
-        if (y >= s.offsetTop - 60 && y < s.offsetTop + s.offsetHeight - 60) over = true;
+      if (scrollTicking) return;
+      scrollTicking = true;
+      requestAnimationFrame(() => {
+        const y = window.scrollY;
+        let over = false;
+        photoSections.forEach(s => {
+          if (y >= s.offsetTop - 60 && y < s.offsetTop + s.offsetHeight - 60) over = true;
+        });
+        nav.className = over ? 'over-photo' : '';
+        scrollTicking = false;
       });
-      nav.className = over ? 'over-photo' : '';
     });
 
   </script>
