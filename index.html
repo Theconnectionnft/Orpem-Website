@@ -609,6 +609,44 @@
       transition: color 0.2s, border-color 0.2s;
     }
     .contact-email-link:hover { color: #D92938; border-color: #D92938; }
+    /* Contact form */
+    .contact-form { margin-top: 2rem; display: flex; flex-direction: column; gap: 0.75rem; }
+    .contact-form input,
+    .contact-form textarea {
+      width: 100%;
+      background: transparent;
+      border: none;
+      border-bottom: 1px solid rgba(0,0,0,0.2);
+      padding: 0.65rem 0;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.85rem;
+      color: #111;
+      outline: none;
+      transition: border-color 0.2s;
+      resize: none;
+    }
+    .contact-form input::placeholder,
+    .contact-form textarea::placeholder { color: rgba(0,0,0,0.35); }
+    .contact-form input:focus,
+    .contact-form textarea:focus { border-bottom-color: #D92938; }
+    .contact-form textarea { min-height: 80px; }
+    .contact-form-btn {
+      margin-top: 0.5rem;
+      align-self: flex-start;
+      background: #D92938;
+      color: #fff;
+      border: none;
+      padding: 0.65rem 1.8rem;
+      font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
+      font-size: 0.72rem;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      cursor: pointer;
+      transition: background 0.2s;
+    }
+    .contact-form-btn:hover { background: #c02030; }
+    .contact-form-success { display: none; font-size: 0.8rem; color: #03738C; letter-spacing: 0.05em; margin-top: 0.5rem; }
+
     /* Cropped brand word */
     .contact-brand-row {
       overflow: hidden;
@@ -1015,15 +1053,6 @@
       </div>
     </div>
 
-    <!-- Team -->
-    <div class="team-title-row">
-      <h3 style="font-size:clamp(1.8rem,4vw,3rem);font-weight:900;letter-spacing:-0.01em;color:#D92938;">The team</h3>
-      <p class="team-subtitle">Senior specialists only — each with deep roots in the Brussels ecosystem.</p>
-    </div>
-    <p class="team-grid-label">Leadership</p>
-    <div class="team-grid" id="team-grid">
-      <!-- cards injected by JS from teamMembers data -->
-    </div>
   </section>
 
   <div class="section-divider blue"><div class="d-line"></div><div class="d-mark"></div><div class="d-line"></div></div>
@@ -1037,6 +1066,7 @@
         <p class="contact-eyebrow">Let's work together</p>
         <h2 class="contact-title">Get in<br>touch.</h2>
         <a href="mailto:info@orpem.eu" class="contact-email-link">info@orpem.eu ↗</a>
+        <a href="https://calendar.app.google/ZyuHSB2uwH18MDT17" target="_blank" rel="noopener" class="contact-email-link" style="display:block;margin-top:1rem;">Book a meeting ↗</a>
       </div>
     </div>
     <!-- Giant cropped brand word -->
