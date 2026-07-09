@@ -3,7 +3,63 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-  <title>ORPEM – Strategic Consulting | Brussels & EU</title>
+
+  <!-- ── Primary SEO ─────────────────────────────────────────── -->
+  <title>ORPEM — EU Communications &amp; Consulting Agency | Brussels</title>
+  <meta name="description" content="Brussels-based agency helping NGOs, associations and organisations build their voice in the EU ecosystem. Strategic communications, branding and digital services." />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://orpem.eu/" />
+
+  <!-- ── Open Graph ──────────────────────────────────────────── -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://orpem.eu/" />
+  <meta property="og:site_name" content="ORPEM" />
+  <meta property="og:title" content="ORPEM — EU Communications &amp; Consulting Agency | Brussels" />
+  <meta property="og:description" content="We help organisations build their voice — and make it heard where decisions are made in Europe. Strategic communications, branding and digital." />
+  <meta property="og:locale" content="en_GB" />
+
+  <!-- ── Twitter Card ────────────────────────────────────────── -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="ORPEM — EU Communications &amp; Consulting Agency | Brussels" />
+  <meta name="twitter:description" content="We help organisations build their voice — and make it heard where decisions are made in Europe." />
+
+  <!-- ── Structured Data (Organization) ─────────────────────── -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ProfessionalService",
+    "name": "ORPEM",
+    "description": "Brussels-based communications and digital agency helping NGOs, associations and organisations build their voice in the EU ecosystem.",
+    "url": "https://orpem.eu",
+    "email": "info@orpem.eu",
+    "address": {
+      "@type": "PostalAddress",
+      "addressLocality": "Brussels",
+      "addressCountry": "BE"
+    },
+    "areaServed": {
+      "@type": "Place",
+      "name": "European Union"
+    },
+    "sameAs": [
+      "https://www.linkedin.com/company/orpem"
+    ],
+    "hasOfferCatalog": {
+      "@type": "OfferCatalog",
+      "name": "Services",
+      "itemListElement": [
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Communications Strategy" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Identity &amp; Web" } },
+        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Network Relations &amp; EU Affairs" } }
+      ]
+    }
+  }
+  </script>
+
+  <!-- ── Performance hints ───────────────────────────────────── -->
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
+  <meta name="theme-color" content="#D92938" />
+
   <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <style>
     *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -889,7 +945,7 @@
   <section class="hero" id="top">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
     <span class="hero-tagline">Brussels · EU Ecosystem · Strategic Consulting</span>
-    <h1 class="hero-wordmark" id="hero-wordmark">ORPEM</h1>
+    <h1 class="hero-wordmark" id="hero-wordmark" aria-label="ORPEM — EU Communications &amp; Consulting Agency Brussels">ORPEM</h1>
     <div class="hero-asterisk">✳</div>
     <div class="hero-bottom">
       <p class="hero-desc">
@@ -913,7 +969,8 @@
   <div class="section-divider red"><div class="d-line"></div><div class="d-mark"></div><div class="d-line"></div></div>
 
   <!-- SERVICES -->
-  <section class="section-wrap" id="services">
+  <main>
+  <section class="section-wrap" id="services" aria-label="Services">
     <div class="section-label"><span class="icon">⚙</span><span>What we do</span></div>
     <div class="services-header">
       <div>
@@ -932,7 +989,7 @@
           <span class="service-card-arrow">↗</span>
         </div>
         <div>
-          <div class="service-card-title">Brand &<br>Digital Presence</div>
+          <h3 class="service-card-title">Brand &<br>Digital Presence</h3>
           <p class="service-card-desc">Your identity is your first argument. We build brands and digital platforms that establish credibility from the first impression — whether you're addressing MEPs, commissioners, or investors.</p>
           <ul class="service-card-list">
             <li>Brand strategy, positioning & naming</li>
@@ -948,7 +1005,7 @@
           <span class="service-card-arrow">↗</span>
         </div>
         <div>
-          <div class="service-card-title">Strategic<br>Communications</div>
+          <h3 class="service-card-title">Strategic<br>Communications</h3>
           <p class="service-card-desc">From EU media relations to digital campaigns — we help you communicate with precision, consistency, and real impact. In Brussels, the right message at the right moment is everything.</p>
           <ul class="service-card-list">
             <li>EU stakeholder communications strategy</li>
@@ -964,7 +1021,7 @@
           <span class="service-card-arrow">↗</span>
         </div>
         <div>
-          <div class="service-card-title">Network &<br>Access</div>
+          <h3 class="service-card-title">Network &<br>Access</h3>
           <p class="service-card-desc">We are connectors at heart. Our network spans EU institutions, policy think tanks, media, investors, and civil society — deployed purposefully on your behalf.</p>
           <ul class="service-card-list">
             <li>Introductions to Commission, Parliament & agencies</li>
@@ -980,7 +1037,7 @@
   <div class="section-divider blue"><div class="d-line"></div><div class="d-mark"></div><div class="d-line"></div></div>
 
   <!-- WORK -->
-  <section class="section-wrap" id="work">
+  <section class="section-wrap" id="work" aria-label="Selected Work">
     <div class="section-label"><span class="icon">◈</span><span>Selected work</span></div>
     <h2 class="section-title">Work</h2>
     <p class="intro-text">A selection of projects — from identity and digital builds to campaigns and network-facilitated partnerships.</p>
@@ -991,7 +1048,7 @@
           <span class="work-arrow">↗</span>
         </div>
         <div>
-          <div class="work-card-title">Flemish Club<br>Brussels NGO</div>
+          <h3 class="work-card-title">Flemish Club<br>Brussels NGO</h3>
           <div class="work-card-sub">Brand identity · Website · Campaign materials</div>
         </div>
       </div>
@@ -1001,7 +1058,7 @@
           <span class="work-arrow">↗</span>
         </div>
         <div>
-          <div class="work-card-title">Salon<br>Liberté</div>
+          <h3 class="work-card-title">Salon<br>Liberté</h3>
           <div class="work-card-sub">Institutional introductions · Partner matching</div>
         </div>
       </div>
@@ -1011,7 +1068,7 @@
           <span class="work-arrow">↗</span>
         </div>
         <div>
-          <div class="work-card-title">EU Jobs<br>Co.</div>
+          <h3 class="work-card-title">EU Jobs<br>Co.</h3>
           <div class="work-card-sub">EU stakeholder comms · Media · Thought leadership</div>
         </div>
       </div>
@@ -1021,7 +1078,7 @@
           <span class="work-arrow">↗</span>
         </div>
         <div>
-          <div class="work-card-title">KUL<br>BRUXMUN</div>
+          <h3 class="work-card-title">KUL<br>BRUXMUN</h3>
           <div class="work-card-sub">Full brand overhaul · Web · Stakeholder outreach</div>
         </div>
       </div>
@@ -1031,7 +1088,7 @@
   <div class="section-divider red"><div class="d-line"></div><div class="d-mark"></div><div class="d-line"></div></div>
 
   <!-- ABOUT -->
-  <section class="section-wrap" id="about">
+  <section class="section-wrap" id="about" aria-label="About ORPEM">
     <div class="section-label"><span class="icon">◎</span><span>About ORPEM</span></div>
     <h2 class="section-title">About</h2>
 
@@ -1058,7 +1115,9 @@
   <div class="section-divider blue"><div class="d-line"></div><div class="d-mark"></div><div class="d-line"></div></div>
 
   <!-- CONTACT -->
-  <section class="contact-section" id="contact">
+  </main>
+
+  <section class="contact-section" id="contact" aria-label="Contact">
     <!-- Two-column top -->
     <div class="contact-top">
       <p class="contact-statement">We help organisations build their voice — and make it heard where decisions are made in Europe.</p>
