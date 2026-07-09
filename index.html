@@ -1195,7 +1195,8 @@
 
       renderer.setAnimationLoop(() => {
         if (!heroVisible) return;
-        uniforms.u_time.value = clock.getElapsedTime();
+        // Oscillate time so waves stay contracted — prevents expensive spread-out state
+        uniforms.u_time.value = Math.sin(clock.getElapsedTime() * 0.35) * 1.8;
         renderer.render(scene, camera);
       });
     })();
