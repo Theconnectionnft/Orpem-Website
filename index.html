@@ -925,6 +925,60 @@
       footer { flex-direction: column; gap: 1.5rem; text-align: center; }
       .footer-nav { justify-content: center; }
       .contact-details { flex-direction: column; gap: 1.5rem; }
+      /* Show minimal sticky nav on tablet/mobile */
+      nav {
+        display: flex;
+        position: sticky;
+        top: 0;
+        z-index: 100;
+        padding: 0.9rem 1.5rem;
+        background: rgba(245,244,242,0.96);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border-bottom: 1px solid rgba(0,0,0,0.06);
+        justify-content: space-between;
+        align-items: center;
+      }
+    }
+
+    /* ── PHONE (≤600px) ───────────────────────────────────────── */
+    @media (max-width: 600px) {
+      nav { padding: 0.8rem 1.2rem; }
+      .lang-switch { display: none; }
+
+      .hero-bottom {
+        flex-direction: column;
+        padding: 0 1.2rem 5rem;
+        gap: 1rem;
+        align-items: flex-start;
+      }
+      .hero-desc { max-width: 100%; font-size: 0.85rem; }
+      .hero-attrs { display: none; }
+
+      .section-wrap { padding: 3rem 1.2rem; }
+      .section-divider { padding: 0 1.2rem; height: 32px; }
+
+      .service-card { min-height: auto; padding: 1.6rem 1.2rem; }
+      .work-card    { min-height: auto; padding: 1.6rem 1.2rem; }
+
+      .stat-item { padding: 1.4rem 1rem; }
+      .stat-item:nth-child(3),
+      .stat-item:nth-child(4) { border-top: 1px solid rgba(0,0,0,0.08); }
+
+      .services-header { gap: 1rem; }
+      .intro-text { margin-bottom: 2rem; font-size: clamp(1.2rem, 5vw, 1.8rem); }
+
+      .contact-top { padding: 3rem 1.2rem 2rem; gap: 1.5rem; }
+      .contact-title { font-size: clamp(2.5rem, 11vw, 4rem); }
+      .contact-bar { padding: 1rem 1.2rem; font-size: 0.55rem; }
+      .contact-brand-row { padding-left: 0.8rem; }
+
+      .sidebar-badge { display: none; }
+
+      .proj-modal-panel { border-radius: 12px 12px 0 0; max-height: 90vh; }
+      .proj-modal-close { top: 1rem; right: 1rem; }
+
+      footer { padding: 1.8rem 1.2rem; }
     }
   </style>
 </head>
