@@ -1,9 +1,9 @@
 {
   "redirects": [
     {
-      "source": "/:path*",
+      "source": "/(.*)",
       "has": [{ "type": "host", "value": "www.orpem.eu" }],
-      "destination": "https://orpem.eu/:path*",
+      "destination": "https://orpem.eu/$1",
       "permanent": true
     }
   ]
