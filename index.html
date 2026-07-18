@@ -35,7 +35,7 @@
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ProfessionalService",
+    "@type": "Organization",
     "@id": "https://orpem.eu/#organization",
     "name": "ORPEM",
     "description": "Brussels-based EU communications and public affairs consultancy helping NGOs, associations, lobby groups and startups build their voice in the EU ecosystem.",
@@ -60,9 +60,36 @@
       "@type": "OfferCatalog",
       "name": "Services",
       "itemListElement": [
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Strategic Communications & EU Public Affairs" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Brand Identity & Digital Presence" } },
-        { "@type": "Offer", "itemOffered": { "@type": "Service", "name": "Network Access & EU Institutional Relations" } }
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Strategic Communications & EU Public Affairs",
+            "description": "From EU media relations to digital campaigns — we help you communicate with precision, consistency, and real impact. In Brussels, the right message at the right moment is everything.",
+            "provider": { "@id": "https://orpem.eu/#organization" },
+            "areaServed": { "@type": "Place", "name": "European Union" }
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Brand Identity & Digital Presence",
+            "description": "Your identity is your first argument. We build brands and digital platforms that establish credibility from the first impression — whether you're addressing MEPs, commissioners, or investors.",
+            "provider": { "@id": "https://orpem.eu/#organization" },
+            "areaServed": { "@type": "Place", "name": "European Union" }
+          }
+        },
+        {
+          "@type": "Offer",
+          "itemOffered": {
+            "@type": "Service",
+            "name": "Network Access & EU Institutional Relations",
+            "description": "We are connectors at heart. Our network spans EU institutions, policy think tanks, media, investors, and civil society — deployed purposefully on your behalf.",
+            "provider": { "@id": "https://orpem.eu/#organization" },
+            "areaServed": { "@type": "Place", "name": "European Union" }
+          }
+        }
       ]
     }
   }
