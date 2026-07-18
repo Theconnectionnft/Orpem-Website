@@ -239,6 +239,14 @@
       color: rgba(255,255,255,0.92);
     }
     .hero-desc strong { color: #fff; }
+    /* Contained dark panels — the shader's bright frames wash out a gradient-only scrim */
+    .hero-intro, .hero-attrs {
+      background: rgba(0,0,0,0.68);
+      backdrop-filter: blur(6px);
+      -webkit-backdrop-filter: blur(6px);
+      padding: 1.1rem 1.3rem;
+      border-radius: 4px;
+    }
     .hero-scroll-btn {
       background: #D92938;
       border: none;
