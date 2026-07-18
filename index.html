@@ -43,6 +43,7 @@
     "logo": "https://orpem.eu/assets/logo.png",
     "image": "https://orpem.eu/assets/og-image.png",
     "email": "info@orpem.eu",
+    "telephone": "+32456910614",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Brussels",
@@ -85,7 +86,19 @@
 
 
     /* ── NAV ──────────────────────────────────────────────────── */
-    nav { display: none; }
+    nav {
+      display: flex;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      padding: 0.9rem 2rem;
+      background: rgba(245,244,242,0.96);
+      backdrop-filter: blur(10px);
+      -webkit-backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(0,0,0,0.06);
+      justify-content: space-between;
+      align-items: center;
+    }
     .nav-logo {
       font-size: 1.1rem;
       font-weight: 900;
@@ -94,8 +107,6 @@
       color: #111;
     }
     .nav-logo span { color: #D92938; }
-    nav.over-photo .nav-logo { color: #fff; }
-    nav.over-photo .nav-logo span { color: #D92938; }
     .nav-links {
       display: flex;
       gap: 2.5rem;
@@ -105,7 +116,6 @@
       text-transform: uppercase;
       color: #111;
     }
-    nav.over-photo .nav-links { color: rgba(255,255,255,0.85); }
     .nav-links a:hover { color: #D92938; }
     .nav-right { display: flex; align-items: center; gap: 1.2rem; }
     .btn-contact {
@@ -122,12 +132,6 @@
       transition: background 0.2s, color 0.2s;
     }
     .btn-contact:hover { background: transparent; color: #D92938; }
-    .lang-switch {
-      font-size: 0.72rem;
-      letter-spacing: 0.1em;
-      color: #999B9A;
-    }
-    nav.over-photo .lang-switch { color: rgba(255,255,255,0.45); }
 
     /* ── HERO ─────────────────────────────────────────────────── */
     .hero {
@@ -146,7 +150,24 @@
       height: 100%;
       z-index: 0;
     }
-    .hero-tagline { display: none; }
+    .hero-tagline {
+      display: block;
+      font-size: 0.68rem;
+      letter-spacing: 0.22em;
+      text-transform: uppercase;
+      color: rgba(74,184,204,0.95);
+      margin-bottom: 0.9rem;
+    }
+    /* Dark scrim so hero copy and corner links stay readable over the animation */
+    .hero::after {
+      content: '';
+      position: absolute;
+      left: 0; right: 0; bottom: 0;
+      height: 48%;
+      background: linear-gradient(to top, rgba(0,0,0,0.82) 0%, rgba(0,0,0,0.45) 55%, transparent 100%);
+      z-index: 1;
+      pointer-events: none;
+    }
     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
     /* All hero children above canvas */
     .hero-wordmark, .hero-asterisk, .hero-bottom, .hero-scroll-wrap { z-index: 1; }
@@ -184,7 +205,13 @@
       transform: translateX(-50%);
       z-index: 3;
     }
-    .hero-desc { display: none; }
+    .hero-desc {
+      max-width: 34rem;
+      font-size: clamp(1rem, 1.4vw, 1.2rem);
+      line-height: 1.65;
+      color: rgba(255,255,255,0.92);
+    }
+    .hero-desc strong { color: #fff; }
     .hero-scroll-btn {
       background: #D92938;
       border: none;
@@ -198,13 +225,13 @@
     }
     .hero-attrs {
       text-align: right;
-      font-size: 0.65rem;
+      font-size: 0.7rem;
       letter-spacing: 0.08em;
-      color: rgba(255,255,255,0.3);
-      line-height: 2.3;
+      color: rgba(255,255,255,0.78);
+      line-height: 2.4;
       flex-shrink: 0;
     }
-    .hero-attrs span { color: rgba(74,184,204,0.8); }
+    .hero-attrs span { color: rgba(74,184,204,0.95); }
 
     /* ── SECTION DIVIDER ─────────────────────────────────────── */
     .section-divider {
@@ -254,7 +281,16 @@
     .section-wrap {
       padding: 6rem 2rem;
     }
-    .section-label { display: none; }
+    .section-label {
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+      font-size: 0.66rem;
+      letter-spacing: 0.2em;
+      text-transform: uppercase;
+      color: #03738C;
+      margin-bottom: 1.2rem;
+    }
     .section-title {
       font-size: clamp(3rem, 8vw, 7rem);
       font-weight: 900;
@@ -896,8 +932,10 @@
     .footer-logo { font-size: 1.3rem; font-weight: 900; letter-spacing: 0.1em; color: #111; }
     .footer-logo span { color: #D92938; }
     .footer-copy { font-size: 0.68rem; color: #999B9A; letter-spacing: 0.05em; }
-    .footer-nav { display: flex; gap: 2rem; }
-    .footer-nav a { font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #999B9A; }
+    .footer-copy { margin-top: 0.4rem; }
+    .footer-nav { display: flex; gap: 1rem; flex-wrap: wrap; }
+    /* ≥44px tap targets */
+    .footer-nav a { display: inline-flex; align-items: center; min-height: 44px; padding: 0 0.6rem; font-size: 0.68rem; letter-spacing: 0.12em; text-transform: uppercase; color: #767876; }
     .footer-nav a:hover { color: #D92938; }
 
     /* ── SIDEBAR ──────────────────────────────────────────────── */
@@ -927,26 +965,12 @@
       footer { flex-direction: column; gap: 1.5rem; text-align: center; }
       .footer-nav { justify-content: center; }
       .contact-details { flex-direction: column; gap: 1.5rem; }
-      /* Show minimal sticky nav on tablet/mobile */
-      nav {
-        display: flex;
-        position: sticky;
-        top: 0;
-        z-index: 100;
-        padding: 0.9rem 1.5rem;
-        background: rgba(245,244,242,0.96);
-        backdrop-filter: blur(10px);
-        -webkit-backdrop-filter: blur(10px);
-        border-bottom: 1px solid rgba(0,0,0,0.06);
-        justify-content: space-between;
-        align-items: center;
-      }
+      nav { padding: 0.9rem 1.5rem; }
     }
 
     /* ── PHONE (≤600px) ───────────────────────────────────────── */
     @media (max-width: 600px) {
       nav { padding: 0.8rem 1.2rem; }
-      .lang-switch { display: none; }
 
       .hero-bottom {
         flex-direction: column;
@@ -954,7 +978,7 @@
         gap: 1rem;
         align-items: flex-start;
       }
-      /* .hero-desc hidden globally */
+      .hero-desc { font-size: 0.95rem; }
       .hero-attrs { display: none; }
 
       .section-wrap { padding: 3rem 1.2rem; }
@@ -996,21 +1020,22 @@
     </ul>
     <div class="nav-right">
       <a href="#contact" class="btn-contact">Contact ↗</a>
-      <span class="lang-switch">EN</span>
     </div>
   </nav>
 
   <!-- HERO -->
   <section class="hero" id="top">
     <canvas id="hero-canvas" aria-hidden="true"></canvas>
-    <span class="hero-tagline">Brussels · EU Ecosystem · Strategic Consulting</span>
     <h1 class="hero-wordmark" id="hero-wordmark">ORPEM<span class="sr-only"> — EU Communications &amp; Public Affairs Agency in Brussels</span></h1>
     <div class="hero-asterisk">✳</div>
     <div class="hero-bottom">
-      <p class="hero-desc">
-        We help <strong>NGOs, associations, lobby groups, and startups</strong> build their voice,
-        sharpen their presence, and connect with the <em>right people</em> inside the EU ecosystem.
-      </p>
+      <div class="hero-intro">
+        <span class="hero-tagline">Brussels · EU Ecosystem · Strategic Consulting</span>
+        <p class="hero-desc">
+          We help <strong>NGOs, associations, lobby groups, and startups</strong> build their voice,
+          sharpen their presence, and connect with the <em>right people</em> inside the EU ecosystem.
+        </p>
+      </div>
       <div class="hero-attrs">
         <a href="#services"><span>Services</span> /01</a><br>
         <a href="#work"><span>Work</span> /02</a><br>
@@ -1185,6 +1210,7 @@
         <p class="contact-eyebrow">Let's work together</p>
         <h2 class="contact-title">Get in<br>touch.</h2>
         <a href="mailto:info@orpem.eu" class="contact-email-link">info@orpem.eu ↗</a>
+        <a href="tel:+32456910614" class="contact-email-link" style="display:block;margin-top:1rem;">+32 456 91 06 14</a>
         <a href="https://calendar.app.google/ZyuHSB2uwH18MDT17" target="_blank" rel="noopener" class="contact-email-link" style="display:block;margin-top:1rem;">Book a meeting ↗</a>
       </div>
     </div>
@@ -1194,12 +1220,27 @@
     </div>
     <!-- Footer bar -->
     <div class="contact-bar">
-      <span>2025 © ORPEM</span>
+      <span>© 2026 ORPEM</span>
       <span>info@orpem.eu</span>
+      <span><a href="tel:+32456910614">+32 456 91 06 14</a></span>
       <span>Brussels, Belgium</span>
-      <span>EN · FR · NL</span>
     </div>
   </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <div>
+      <span class="footer-logo">ORP<span>E</span>M</span>
+      <p class="footer-copy">© 2026 ORPEM · EU communications &amp; public affairs consultancy · Brussels, Belgium</p>
+    </div>
+    <nav class="footer-nav" aria-label="Footer">
+      <a href="#services">Services</a>
+      <a href="#work">Work</a>
+      <a href="#about">About</a>
+      <a href="#contact">Contact</a>
+      <a href="/privacy.html">Privacy</a>
+    </nav>
+  </footer>
 
   <!-- PROJECT MODAL -->
   <div class="proj-modal" id="proj-modal" role="dialog" aria-modal="true" aria-hidden="true">
@@ -1327,10 +1368,9 @@
     const ICON_PHONE    = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72c.13.96.36 1.9.7 2.81a2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45c.91.34 1.85.57 2.81.7A2 2 0 0 1 22 16.92z"/></svg>';
 
     const teamMembers = [
-      { name: 'Theo M. Piepers Jr.', role: 'Founding Partner', avatar: 'assets/IMG_3224.jpg',            linkedin: 'https://www.linkedin.com/in/theo-piepers-jr-892823165/', email: 'pieperstheo@gmail.com', phone: '+421905913272' },
-      { name: 'Rayane Oualdou',     role: 'Founding Partner', avatar: 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Crect%20width%3D%27200%27%20height%3D%27200%27%20fill%3D%27%23999B9A%27/%3E%3Ctext%20x%3D%27100%27%20y%3D%27118%27%20text-anchor%3D%27middle%27%20font-family%3D%27Helvetica%20Neue%2CArial%2Csans-serif%27%20font-size%3D%2770%27%20font-weight%3D%27700%27%20fill%3D%27%23fff%27%3ERO%3C/text%3E%3C/svg%3E', linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32400000002' },
-      { name: 'Artur Parajňák',     role: 'Founding Partner', avatar: 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Crect%20width%3D%27200%27%20height%3D%27200%27%20fill%3D%27%23999B9A%27/%3E%3Ctext%20x%3D%27100%27%20y%3D%27118%27%20text-anchor%3D%27middle%27%20font-family%3D%27Helvetica%20Neue%2CArial%2Csans-serif%27%20font-size%3D%2770%27%20font-weight%3D%27700%27%20fill%3D%27%23fff%27%3EAP%3C/text%3E%3C/svg%3E', linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32400000003' },
-      { name: 'John Telephone',     role: 'Company Pet',      avatar: 'assets/IMG_3364 (1).jpg',          linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32400000004' }
+      { name: 'Theo M. Piepers Jr.', role: 'Founding Partner', avatar: 'assets/IMG_3224.jpg',            linkedin: 'https://www.linkedin.com/in/theo-piepers-jr-892823165/', email: 'info@orpem.eu', phone: '+32456910614' },
+      { name: 'Rayane Oualdou',     role: 'Founding Partner', avatar: 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Crect%20width%3D%27200%27%20height%3D%27200%27%20fill%3D%27%23999B9A%27/%3E%3Ctext%20x%3D%27100%27%20y%3D%27118%27%20text-anchor%3D%27middle%27%20font-family%3D%27Helvetica%20Neue%2CArial%2Csans-serif%27%20font-size%3D%2770%27%20font-weight%3D%27700%27%20fill%3D%27%23fff%27%3ERO%3C/text%3E%3C/svg%3E', linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32456910614' },
+      { name: 'Artur Parajňák',     role: 'Founding Partner', avatar: 'data:image/svg+xml,%3Csvg%20xmlns%3D%27http%3A//www.w3.org/2000/svg%27%20width%3D%27200%27%20height%3D%27200%27%3E%3Crect%20width%3D%27200%27%20height%3D%27200%27%20fill%3D%27%23999B9A%27/%3E%3Ctext%20x%3D%27100%27%20y%3D%27118%27%20text-anchor%3D%27middle%27%20font-family%3D%27Helvetica%20Neue%2CArial%2Csans-serif%27%20font-size%3D%2770%27%20font-weight%3D%27700%27%20fill%3D%27%23fff%27%3EAP%3C/text%3E%3C/svg%3E', linkedin: 'https://www.linkedin.com/company/orpem',                         email: 'info@orpem.eu',        phone: '+32456910614' }
     ];
 
     const teamGrid = document.getElementById('team-grid');
@@ -1493,24 +1533,6 @@
     }
     fitContactBrand();
     window.addEventListener('resize', () => { fitWordmark(); fitContactBrand(); });
-
-    /* ── Nav dark over photo sections ── */
-    const nav = document.getElementById('main-nav');
-    const photoSections = document.querySelectorAll('.contact-section');
-    let scrollTicking = false;
-    window.addEventListener('scroll', () => {
-      if (scrollTicking) return;
-      scrollTicking = true;
-      requestAnimationFrame(() => {
-        const y = window.scrollY;
-        let over = false;
-        photoSections.forEach(s => {
-          if (y >= s.offsetTop - 60 && y < s.offsetTop + s.offsetHeight - 60) over = true;
-        });
-        nav.className = over ? 'over-photo' : '';
-        scrollTicking = false;
-      });
-    });
 
   </script>
 </body>
