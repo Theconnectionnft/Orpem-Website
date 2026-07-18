@@ -70,7 +70,6 @@
 
   <!-- ── Performance hints ───────────────────────────────────── -->
   <link rel="preconnect" href="https://cdnjs.cloudflare.com" />
-  <link rel="preload" href="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" as="script" />
   <meta name="theme-color" content="#D92938" />
 
   <style>
@@ -136,6 +135,7 @@
     /* ── HERO ─────────────────────────────────────────────────── */
     .hero {
       height: 100vh;
+      height: 100dvh;
       background: #000;
       position: relative;
       display: flex;
@@ -171,11 +171,11 @@
     .sr-only { position:absolute; width:1px; height:1px; padding:0; margin:-1px; overflow:hidden; clip:rect(0,0,0,0); white-space:nowrap; border:0; }
     /* All hero children above canvas */
     .hero-wordmark, .hero-asterisk, .hero-bottom, .hero-scroll-wrap { z-index: 1; }
-    /* Full-width wordmark — JS will set font-size */
+    /* Full-width wordmark — sized with vw, no JS reflow loop */
     .hero-wordmark {
       display: block;
       width: 100%;
-      font-size: 200px; /* overridden by JS */
+      font-size: 26.5vw;
       font-weight: 900;
       letter-spacing: -0.025em;
       text-transform: uppercase;
@@ -755,11 +755,14 @@
       display: block;
       font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif;
       font-weight: 900;
-      font-size: 200px; /* JS override */
+      font-size: 26vw;
       letter-spacing: -0.025em;
       text-transform: uppercase;
       color: #D92938;
       line-height: 1;
+      /* crop to the top of the letterforms */
+      height: 0.58em;
+      overflow: hidden;
       white-space: nowrap;
       user-select: none;
     }
@@ -1265,10 +1268,21 @@
 
 
 
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
   <script>
-    /* ── Hero wave shader ── */
-    (function initHeroShader() {
+    /* ── Hero wave shader — loaded on idle, skipped for reduced motion ── */
+    (function loadHeroShader() {
+      if (window.matchMedia('(prefers-reduced-motion: reduce)').matches) return;
+      function load() {
+        const s = document.createElement('script');
+        s.src = 'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js';
+        s.onload = initHeroShader;
+        document.head.appendChild(s);
+      }
+      if ('requestIdleCallback' in window) requestIdleCallback(load, { timeout: 2000 });
+      else window.addEventListener('load', load);
+    })();
+
+    function initHeroShader() {
       const canvas = document.getElementById('hero-canvas');
       if (!canvas || typeof THREE === 'undefined') return;
 
@@ -1360,7 +1374,7 @@
         uniforms.u_time.value = Math.sin(clock.getElapsedTime() * 0.35) * 1.8;
         renderer.render(scene, camera);
       });
-    })();
+    }
 
     /* ── Team grid + contact popovers ── */
     const ICON_LINKEDIN = '<svg viewBox="0 0 24 24" fill="currentColor"><path d="M19 0H5C2.24 0 0 2.24 0 5v14c0 2.76 2.24 5 5 5h14c2.76 0 5-2.24 5-5V5c0-2.76-2.24-5-5-5zM7.5 19h-3v-9h3v9zM6 8.25c-0.97 0-1.75-0.79-1.75-1.75S5.03 4.75 6 4.75s1.75 0.78 1.75 1.75S6.97 8.25 6 8.25zM20 19h-3v-4.5c0-1.07-0.02-2.45-1.5-2.45-1.5 0-1.73 1.17-1.73 2.38V19h-3v-9h2.88v1.23h0.04c0.4-0.76 1.38-1.56 2.84-1.56 3.04 0 3.6 2 3.6 4.59V19z"/></svg>';
@@ -1485,55 +1499,6 @@
       entries.forEach(e => { if (e.isIntersecting) { e.target.classList.add('visible'); animObserver.unobserve(e.target); } });
     }, { threshold: 0.15 });
     document.querySelectorAll('.section-divider, .section-wrap, .contact-section').forEach(el => animObserver.observe(el));
-
-    /* ── Full-width hero wordmark ── */
-    function fitWordmark() {
-      const el = document.getElementById('hero-wordmark');
-      if (!el) return;
-      const target = document.documentElement.clientWidth;
-      let lo = 10, hi = 2000;
-      while (lo < hi - 1) {
-        const mid = (lo + hi) >> 1;
-        el.style.fontSize = mid + 'px';
-        if (el.scrollWidth <= target) lo = mid;
-        else hi = mid;
-      }
-      el.style.fontSize = lo + 'px';
-    }
-    fitWordmark();
-
-    function fitWatermark() {
-      const el = document.querySelector('.contact-watermark');
-      if (!el) return;
-      const target = document.querySelector('.contact-section').clientWidth;
-      let lo = 10, hi = 3000;
-      while (lo < hi - 1) {
-        const mid = (lo + hi) >> 1;
-        el.style.fontSize = mid + 'px';
-        if (el.scrollWidth <= target) lo = mid;
-        else hi = mid;
-      }
-      el.style.fontSize = lo + 'px';
-    }
-    function fitContactBrand() {
-      const el = document.getElementById('contact-brand-word');
-      const row = document.querySelector('.contact-brand-row');
-      if (!el || !row) return;
-      const target = document.querySelector('.contact-section').clientWidth;
-      let lo = 10, hi = 4000;
-      while (lo < hi - 1) {
-        const mid = (lo + hi) >> 1;
-        el.style.fontSize = mid + 'px';
-        if (el.scrollWidth <= target) lo = mid;
-        else hi = mid;
-      }
-      el.style.fontSize = lo + 'px';
-      // Show only the top ~58% of the letters (creates the crop effect)
-      row.style.height = Math.round(lo * 0.58) + 'px';
-    }
-    fitContactBrand();
-    window.addEventListener('resize', () => { fitWordmark(); fitContactBrand(); });
-
   </script>
 </body>
 </html>
