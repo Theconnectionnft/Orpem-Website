@@ -513,6 +513,36 @@
       color: #ccc;
     }
 
+    /* Case-study narratives (static, crawlable; modal reads from these) */
+    .case-studies {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 3rem 2.5rem;
+      margin-top: 3.5rem;
+    }
+    @media (max-width: 900px) { .case-studies { grid-template-columns: 1fr; gap: 2.5rem; } }
+    .case-study {
+      border-top: 1px solid rgba(0,0,0,0.09);
+      padding-top: 1.6rem;
+    }
+    .case-study-title {
+      font-size: 1.05rem;
+      font-weight: 900;
+      letter-spacing: -0.01em;
+      line-height: 1.35;
+      color: #111;
+      margin-bottom: 0.9rem;
+    }
+    .case-study-body p {
+      font-size: 0.9rem;
+      line-height: 1.8;
+      color: #555;
+    }
+    .case-study-meta { display: flex; flex-wrap: wrap; gap: 0.4rem 1.8rem; margin: 1rem 0 0; }
+    .case-study-meta div { font-size: 0.66rem; letter-spacing: 0.1em; text-transform: uppercase; color: #999B9A; }
+    .case-study-meta dt { display: inline; font-weight: 700; }
+    .case-study-meta dd { display: inline; margin-left: 0.4rem; color: #111; }
+
     /* ── ABOUT ────────────────────────────────────────────────── */
     .about-layout {
       display: grid;
@@ -1170,6 +1200,53 @@
         </div>
       </div>
     </div>
+
+    <!-- Case-study narratives — static and crawlable; the modal above is progressive enhancement -->
+    <div class="case-studies">
+      <article class="case-study" id="case-study-flemish">
+        <h3 class="case-study-title">Flemish Club Brussels NGO: Brand Redesign, Website Overhaul &amp; Custom Event Management Tool</h3>
+        <div class="case-study-body">
+          <p>ORPEM led a full brand redesign and website overhaul for the Flemish Club Brussels NGO, giving the organisation a more modern, contemporary identity across every visible touchpoint. The rebrand covered the organisation's visual identity, its digital presence, and its supporting campaign materials, replacing an outdated look with one built for how the club actually communicates with its members today. Beyond the rebrand, ORPEM designed and built the organisation a proprietary event management system — a purpose-built digital tool that lets the team plan, organise, and run its events from a single platform. This custom tool replaced a patchwork of manual processes with one workflow designed specifically around the organisation's own way of working, giving staff a single place to manage logistics from planning through execution. The result is an NGO with a refreshed public identity and its own dedicated infrastructure for running events, reducing reliance on ad hoc tools and manual coordination going forward.</p>
+        </div>
+        <dl class="case-study-meta">
+          <div><dt>Scope</dt><dd>Brand redesign · Website · Custom event management tool</dd></div>
+          <div><dt>Location</dt><dd>Brussels, Belgium</dd></div>
+        </dl>
+      </article>
+
+      <article class="case-study" id="case-study-salon">
+        <h3 class="case-study-title">Salon Liberté: Investor Matchmaking &amp; Organisational Pivot After Sponsor Withdrawal</h3>
+        <div class="case-study-body">
+          <p>ORPEM secured Salon Liberté's future by connecting the organisation with a new investor after its previous sponsor withdrew support following a shift in the political landscape of its home country. When that sponsorship loss put the organisation's continuity at risk, ORPEM stepped in to identify and connect it with a new investor able to support its mission going forward. Beyond the introduction itself, ORPEM guided Salon Liberté through an organisational pivot, repositioning its mission and operating model to align with the priorities of its new partnership. This meant rethinking how the organisation described itself, structured its activities, and positioned its value to a different kind of backer, rather than simply carrying its previous approach over unchanged. The combined effect of the investor matchmaking and the strategic repositioning was long-term stability for an organisation that had lost its founding source of support, giving it a sustainable path forward in Brussels.</p>
+        </div>
+        <dl class="case-study-meta">
+          <div><dt>Scope</dt><dd>Investor matchmaking · Organisational strategy</dd></div>
+          <div><dt>Location</dt><dd>Brussels, Belgium</dd></div>
+        </dl>
+      </article>
+
+      <article class="case-study" id="case-study-eujobs">
+        <h3 class="case-study-title">EU Jobs Co.: Rebrand and LinkedIn Growth Strategy Behind 80% of Leads</h3>
+        <div class="case-study-body">
+          <p>ORPEM's rebrand and LinkedIn growth strategy for EU Jobs Co. turned the platform into the company's primary lead source, generating roughly 80% of all company leads. The engagement began with a full rebrand of EU Jobs Co., establishing a new brand identity, before ORPEM built a growth strategy centred entirely on LinkedIn. Through a structured content and outreach programme, ORPEM grew the company's LinkedIn following to over 2,000, converting the platform from a secondary channel into the company's primary acquisition engine. That LinkedIn momentum did more than generate leads: it contributed to EU Jobs Co. securing venture capital investment in San Francisco, a milestone that let the company refocus its operations on research and development. What started as a branding project became the foundation for a US funding round and a shift in company priorities, showing how a disciplined LinkedIn strategy can compound into outcomes well beyond social metrics.</p>
+        </div>
+        <dl class="case-study-meta">
+          <div><dt>Scope</dt><dd>Brand identity · LinkedIn growth strategy · Lead generation</dd></div>
+          <div><dt>Location</dt><dd>Brussels, Belgium</dd></div>
+        </dl>
+      </article>
+
+      <article class="case-study" id="case-study-kulbruxmun">
+        <h3 class="case-study-title">KULBRUXMUN: Brand Overhaul and Subsidy Reclassification via Stakeholder Negotiation</h3>
+        <div class="case-study-body">
+          <p>ORPEM led a full brand overhaul and Instagram-led marketing strategy for KULBRUXMUN, the KU Leuven Brussels Model United Nations programme, while also negotiating a subsidy reclassification on the organisation's behalf. The branding work refreshed how KULBRUXMUN presents itself publicly, paired with a marketing strategy built specifically around Instagram to reach its student and delegate audience. Alongside that creative work, ORPEM represented KULBRUXMUN directly in stakeholder negotiations with STUVO's junior enterprise fund, the body responsible for classifying and funding student organisations of this kind. Those negotiations secured a reclassification of KULBRUXMUN's operations, which in turn resulted in a significant increase in its financial subsidy. The engagement therefore combined two distinct disciplines — brand and digital marketing on one side, formal institutional negotiation on the other — leaving KULBRUXMUN with a stronger public identity and a materially larger funding base to operate from.</p>
+        </div>
+        <dl class="case-study-meta">
+          <div><dt>Scope</dt><dd>Brand overhaul · Instagram strategy · Stakeholder negotiation</dd></div>
+          <div><dt>Location</dt><dd>Brussels, Belgium</dd></div>
+        </dl>
+      </article>
+    </div>
   </section>
 
   <div class="section-divider red"><div class="d-line"></div><div class="d-mark"></div><div class="d-line"></div></div>
@@ -1472,7 +1549,8 @@
       const p = projects[id]; if (!p) return;
       document.getElementById('modal-tag').textContent   = p.tag;
       document.getElementById('modal-title').textContent = p.title;
-      document.getElementById('modal-desc').textContent  = p.desc;
+      const art = document.querySelector('#case-study-' + id + ' .case-study-body');
+      document.getElementById('modal-desc').textContent  = art ? art.textContent.trim() : p.desc;
       document.getElementById('modal-logo').src = p.logo;
       document.getElementById('modal-logo').alt = p.title + ' logo';
       document.getElementById('modal-logo-panel').classList.toggle('tone-blue', id === 'kulbruxmun');
