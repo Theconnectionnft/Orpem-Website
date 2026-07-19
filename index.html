@@ -654,19 +654,25 @@
 
     var target = 0, current = 0, max = 0, raf = null;
 
+    var chapterCache = [], worldW = 0;
     function measure() {
       if (isMobile()) { max = 0; track.style.transform = ''; return; }
       max = Math.max(0, track.scrollWidth - world.clientWidth);
+      worldW = world.clientWidth;
+      // cache chapter offsets once — avoids layout reads every frame
+      chapterCache = ['services', 'work', 'about', 'contact'].map(function (id, i) {
+        var el = document.getElementById(id);
+        return { left: el ? el.offsetLeft : 1e9, label: ((i + 1) + ' — ' + id).toUpperCase() };
+      });
     }
 
+    var lastLabel = '';
     function chapterAt(x) {
-      var ids = ['services', 'work', 'about', 'contact'];
-      var label = 'Intro';
-      for (var i = 0; i < ids.length; i++) {
-        var el = document.getElementById(ids[i]);
-        if (el && el.offsetLeft - world.clientWidth * 0.5 <= x) label = (i + 1) + ' — ' + ids[i];
+      var label = 'INTRO';
+      for (var i = 0; i < chapterCache.length; i++) {
+        if (chapterCache[i].left - worldW * 0.5 <= x) label = chapterCache[i].label;
       }
-      return label.toUpperCase();
+      return label;
     }
 
     function render() {
@@ -676,7 +682,8 @@
       track.style.transform = 'translateX(' + (-current) + 'px)';
       if (progFill && max > 0) {
         progFill.style.width = (current / max * 100) + '%';
-        progLabel.textContent = chapterAt(current);
+        var lbl = chapterAt(current);
+        if (lbl !== lastLabel) { lastLabel = lbl; progLabel.textContent = lbl; }
       }
       if (current !== target) { raf = requestAnimationFrame(render); } else { raf = null; }
     }
@@ -993,7 +1000,10 @@ void main() {
   (function () {
     var FRAG = document.getElementById('auroraFrag').textContent;
     var VERT = 'attribute vec2 a_pos; void main(){ gl_Position = vec4(a_pos, 0.0, 1.0); }';
-    var dpr = Math.min(window.devicePixelRatio || 1, 2);
+    // Perf: render at reduced internal resolution (the aurora is soft — CSS
+    // upscaling is invisible) and cap the shader loop at ~30fps.
+    var RENDER_SCALE = 0.5;
+    var FRAME_MS = 32;
 
     // RED palette (hero + contact + numerals): black low → red dominant → white peaks
     var PAL_RED = [
@@ -1057,20 +1067,23 @@ void main() {
       }
       setPalette(mode === 'white' ? 1 : 0);
 
+      // sizes are cached — recomputed only on layout changes, never per frame
       function resize() {
-        var w = canvas.clientWidth, h = canvas.clientHeight;
-        if (w > 0 && h > 0 && (canvas.width !== w * dpr || canvas.height !== h * dpr)) {
-          canvas.width = w * dpr; canvas.height = h * dpr;
-          gl.viewport(0, 0, canvas.width, canvas.height);
+        var w = Math.max(1, Math.round(canvas.clientWidth * RENDER_SCALE));
+        var h = Math.max(1, Math.round(canvas.clientHeight * RENDER_SCALE));
+        if (canvas.width !== w || canvas.height !== h) {
+          canvas.width = w; canvas.height = h;
+          gl.viewport(0, 0, w, h);
         }
       }
+      resize();
 
       return {
+        canvas: canvas,
         render: function (now, start, blendTarget) {
-          resize();
-          if (canvas.width === 0 || canvas.height === 0) return;
+          if (canvas.width <= 1 || canvas.height <= 1) return;
           if (mode === 'morph') {
-            bSmooth += (blendTarget - bSmooth) * 0.08;
+            bSmooth += (blendTarget - bSmooth) * 0.16;
             if (Math.abs(blendTarget - bSmooth) < 0.002) bSmooth = blendTarget;
             setPalette(bSmooth);
           }
@@ -1085,26 +1098,6 @@ void main() {
       var t = Math.min(1, Math.max(0, (x - a) / (b - a)));
       return t * t * (3 - 2 * t);
     }
-    // Blend: 0 = red, 1 = white. Red on hero, white through chapters, red at contact.
-    function paletteBlend() {
-      var mobile = window.matchMedia('(max-width: 900px)').matches;
-      var contact = document.querySelector('.p-contact');
-      var up, down;
-      if (mobile) {
-        var y = window.scrollY || 0;
-        var vh = window.innerHeight;
-        up = smoothstepJS(vh * 0.15, vh * 0.95, y);
-        var cTop = contact ? contact.offsetTop : 1e9;
-        down = smoothstepJS(cTop - vh * 1.6, cTop - vh * 0.45, y);
-      } else {
-        var x = window.__orpemX || 0;
-        var vw = window.innerWidth;
-        up = smoothstepJS(vw * 0.1, vw * 0.85, x);
-        var cLeft = contact ? contact.offsetLeft : 1e9;
-        down = smoothstepJS(cLeft - vw * 1.5, cLeft - vw * 0.4, x);
-      }
-      return up * (1 - down);
-    }
 
     var main = createAurora(document.getElementById('auroraCanvas'), 'morph', 0);
     if (!main) { document.body.classList.add('no-shader'); return; }
@@ -1112,18 +1105,68 @@ void main() {
     document.querySelectorAll('.num-canvas').forEach(function (c, i) {
       var digit = c.parentElement.getAttribute('data-digit');
       var a = createAurora(c, digit === '4' ? 'white' : 'red', (i + 1) * 7);
-      if (a) nums.push(a);
+      if (a) { a.trackLeft = 0; a.w = 0; nums.push(a); }
     });
 
+    var mq = window.matchMedia('(max-width: 900px)');
+    var mobileNow = mq.matches;
+    var contactEl = document.querySelector('.p-contact');
+    var L = { cLeft: 1e9, cTop: 1e9, vw: 1, vh: 1 };
+
+    // All layout reads happen here, never in the frame loop.
+    function recalcLayout() {
+      mobileNow = mq.matches;
+      L.vw = window.innerWidth; L.vh = window.innerHeight;
+      if (contactEl) { L.cLeft = contactEl.offsetLeft; L.cTop = contactEl.offsetTop; }
+      main.resize();
+      var x = window.__orpemX || 0;
+      for (var i = 0; i < nums.length; i++) {
+        nums[i].resize();
+        var r = nums[i].canvas.getBoundingClientRect();
+        nums[i].trackLeft = mobileNow ? 0 : r.left + x; // static position inside the track
+        nums[i].w = r.width;
+        nums[i].top = r.top + (window.scrollY || 0);
+        nums[i].h = r.height;
+      }
+    }
+
+    // Blend: 0 = red, 1 = white. Red on hero, white through chapters, red at contact.
+    function paletteBlend() {
+      var up, down;
+      if (mobileNow) {
+        var y = window.scrollY || 0;
+        up = smoothstepJS(L.vh * 0.15, L.vh * 0.95, y);
+        down = smoothstepJS(L.cTop - L.vh * 1.6, L.cTop - L.vh * 0.45, y);
+      } else {
+        var x = window.__orpemX || 0;
+        up = smoothstepJS(L.vw * 0.1, L.vw * 0.85, x);
+        down = smoothstepJS(L.cLeft - L.vw * 1.5, L.cLeft - L.vw * 0.4, x);
+      }
+      return up * (1 - down);
+    }
+
+    function numVisible(n) {
+      if (mobileNow) {
+        var y = window.scrollY || 0;
+        return n.top + n.h > y - 100 && n.top < y + L.vh + 100;
+      }
+      var x = window.__orpemX || 0;
+      var sx = n.trackLeft - x;
+      return sx + n.w > -100 && sx < L.vw + 100;
+    }
+
     var reduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    var running = true, raf = null, start = performance.now();
+    var running = true, raf = null, start = performance.now(), lastDraw = 0;
 
     function frame(now) {
+      raf = (running && !reduced) ? requestAnimationFrame(frame) : null;
+      if (now - lastDraw < FRAME_MS) return; // ~30fps shader cadence
+      lastDraw = now;
       var bTarget = document.body.classList.contains('menu-open') ? 0 : paletteBlend();
       main.render(now, start, bTarget);
-      for (var i = 0; i < nums.length; i++) nums[i].render(now, start, 0);
-      if (running && !reduced) raf = requestAnimationFrame(frame);
-      else raf = null;
+      for (var i = 0; i < nums.length; i++) {
+        if (numVisible(nums[i])) nums[i].render(now, start, 0);
+      }
     }
 
     if (reduced) {
@@ -1137,10 +1180,10 @@ void main() {
       if (running && !reduced && !raf) { raf = requestAnimationFrame(frame); }
       if (!running && raf) { cancelAnimationFrame(raf); raf = null; }
     });
-    window.addEventListener('resize', function () {
-      main.resize();
-      for (var i = 0; i < nums.length; i++) nums[i].resize();
-    });
+    window.addEventListener('resize', recalcLayout);
+    window.addEventListener('load', recalcLayout);
+    recalcLayout();
+    setTimeout(recalcLayout, 600); // after fonts/late layout settle
 
     raf = requestAnimationFrame(frame); // reduced-motion: renders one static frame
   })();
