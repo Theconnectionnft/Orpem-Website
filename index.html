@@ -102,6 +102,37 @@
     a { color: inherit; text-decoration: none; }
     ul { list-style: none; }
 
+    /* ── LOADING SCREEN ─────────────────────────────────────── */
+    #loader {
+      position: fixed; inset: 0; z-index: 200;
+      background: var(--ink);
+      display: flex; align-items: center; justify-content: center;
+      transition: opacity 0.6s ease;
+    }
+    #loader.done { opacity: 0; pointer-events: none; }
+    .loader-word {
+      font-family: var(--font);
+      font-weight: 900; font-size: 2rem; letter-spacing: 0.08em;
+      /* white base with red rising fill, clipped to the text */
+      background-image:
+        linear-gradient(var(--red), var(--red)),
+        linear-gradient(#fff, #fff);
+      background-repeat: no-repeat;
+      background-position: bottom left, top left;
+      background-size: 100% 0%, 100% 100%;
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      animation: loaderFill 2.6s ease-in-out forwards;
+    }
+    @keyframes loaderFill {
+      from { background-size: 100% 0%, 100% 100%; }
+      to   { background-size: 100% 100%, 100% 100%; }
+    }
+    @media (prefers-reduced-motion: reduce) {
+      .loader-word { animation: none; background-size: 100% 100%, 100% 100%; }
+    }
+
     /* ── FIXED LEFT SIDEBAR ─────────────────────────────────── */
     .sidebar {
       position: fixed; top: 0; left: 0; bottom: 0;
@@ -451,6 +482,11 @@
 </head>
 <body>
 
+  <!-- ── LOADING SCREEN ── -->
+  <div id="loader" aria-hidden="true">
+    <span class="loader-word">ORPEM</span>
+  </div>
+
   <!-- ── GLOBAL SHADER BACKGROUND ── -->
   <canvas id="auroraCanvas" aria-hidden="true"></canvas>
 
@@ -770,6 +806,15 @@
     window.addEventListener('resize', function () { measure(); fitHero(); });
     measure(); fitHero();
     window.addEventListener('load', function () { measure(); fitHero(); });
+
+    // loading screen: hold ~3s (covers shader warm-up), then fade out
+    var loader = document.getElementById('loader');
+    if (loader) {
+      setTimeout(function () {
+        loader.classList.add('done');
+        setTimeout(function () { loader.remove(); }, 700);
+      }, 3000);
+    }
   })();
   </script>
 
